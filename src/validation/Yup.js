@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const RegisterSchema = Yup.object({
-  // username:Yup.string().required("Please enter your name"),
+  username:Yup.string().required("Please enter your name"),
   email: Yup.string().email().required("Please enter your email"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
