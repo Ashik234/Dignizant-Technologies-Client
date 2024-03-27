@@ -3,8 +3,11 @@ import Wishlist from "/favorite.svg";
 import Cart from "/cart.svg";
 import { useQuery } from "@tanstack/react-query";
 import userRequest from "../utils/userRequest";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const profiledata = useSelector((state) => state.user);
+console.log(profiledata);
   const { isLoading, error, data } = useQuery({
     queryFn: () => userRequest.get("/products").then((res) => res.data),
   });
@@ -17,6 +20,33 @@ function Home() {
     console.log(error);
     return <h1>erorrr</h1>;
   }
+
+  const handleAddToCart = async (productId) => {
+    try {
+
+      await userRequest.post("/addcart", {
+        userId: profiledata.userId,
+        productId: productId,
+      });
+
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+  const handleAddToWishlist = async (productId) => {
+    try {
+
+      await userRequest.post("/addwishlist", {
+        userId: profiledata.userId,
+        productId: productId,
+      });
+
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
 
   const products = [
     {
@@ -68,8 +98,12 @@ function Home() {
               <div className="flex justify-between">
                 <p className="text-gray-600">${product.price}</p>
                 <div className="flex gap-6">
-                  <img src={Cart} className="cursor-pointer" alt="" />
-                  <img src={Wishlist} className="cursor-pointer" alt="" />
+                  <img src={Cart} 
+                  onClick={() => handleAddToCart(product._id)} 
+                  className="cursor-pointer" alt="" />
+                  <img src={Wishlist} 
+                   onClick={() => handleAddToWishlist(product._id)} 
+                  className="cursor-pointer" alt="" />
                 </div>
               </div>
             </div>
