@@ -33,8 +33,8 @@ function Register() {
     formik;
   return (
     <>
-      <div className="flex justify-center bg-F9F9F9 p-4 sm:p-14 lg:h-screen">
-        <div className="bg-white lg:rounded-l-xl rounded-l-md border sm:w-1/2">
+      <div className="flex justify-center bg-F9F9F9 p-4 sm:p-14 h-full">
+        <div className="bg-white lg:rounded-l-xl rounded-l-md  border sm:w-1/2">
           <h1 className="p-4">LOGO</h1>
 
           <div className="flex items-center justify-center">
@@ -130,9 +130,9 @@ function Register() {
               </div>
               <div className="flex justify-center">
 
-                <p className="small fw-bold mt-2 pt-1 mb-0">
+                <p className="small fw-bold mt-2 pt-1 mb-4">
                     Already have an account?{" "}
-                    <a href="/login" className="link-danger">
+                    <a href="/login"   style={{ color: "rgb(27, 133, 231)" }}>
                       Login
                     </a>
                   </p>
