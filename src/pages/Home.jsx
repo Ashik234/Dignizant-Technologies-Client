@@ -1,7 +1,5 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-
+import Wishlist from "/favorite.svg";
 function Home() {
   const products = [
     {
@@ -29,7 +27,6 @@ function Home() {
 
   return (
     <div className="mx-auto">
-      <NavBar />
       <div className="mt-8">
         <h1 className="font-bold text-center text-2xl">Explore Categories</h1>
         <div className="flex justify-evenly mt-4">
@@ -37,7 +34,7 @@ function Home() {
             <div key={product.id} className="bg-white p-4 shadow-md rounded-md">
               <img src={product.imageUrl} alt="" />
               <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-              <p className="text-gray-600">${product.price}</p>
+                <p className="text-gray-600">${product.price}</p>
             </div>
           ))}
         </div>
@@ -50,12 +47,14 @@ function Home() {
             <div key={product.id} className="bg-white p-4 shadow-md rounded-md">
               <img src={product.imageUrl} alt="" />
               <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-              <p className="text-gray-600">${product.price}</p>
+              <div className="flex justify-between">
+                <p className="text-gray-600">${product.price}</p>
+                <img className="cursor-pointer" src={Wishlist} alt="" />
+              </div>
             </div>
           ))}
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }
