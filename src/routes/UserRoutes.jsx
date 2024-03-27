@@ -7,6 +7,7 @@ import PublicRoutes from "./Protected/PublicRoutes";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Layout from "../pages/Layout";
+import Orders from "../pages/Orders";
 function UserRoutes() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ function UserRoutes() {
       <Route path="/" element={<Layout/>}>
         <Route index element={<ProtectRoutes><Home/></ProtectRoutes>}/>
         <Route exact path="/profile" element={<ProtectRoutes><Profile/></ProtectRoutes>}/>
+        <Route exact path="/orders" element={<ProtectRoutes><Orders/></ProtectRoutes>}/>
       </Route>
     </Routes>
   );
