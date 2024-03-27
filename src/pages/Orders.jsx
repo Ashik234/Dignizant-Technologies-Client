@@ -1,7 +1,21 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import userRequest from '../utils/userRequest';
+import { Button } from 'antd';
 
 function Orders() {
+  const { isLoading, error, data } = useQuery({
+    queryFn: () => userRequest.get("/orders").then((res) => res.data),
+  });
+  if (isLoading) {
+    return <h1>loading</h1>;
+  }
 
+  if (error) {
+    console.log(error);
+    return <h1>erorrr</h1>;
+  }
+  console.log(data);
 
   return (
     <div className='mx-8'>
@@ -15,32 +29,20 @@ function Orders() {
                 <th className="px-2 py-2 md:px-4 md:py-4">Quantity</th>
                 <th className="px-2 py-2 md:px-4 md:py-4">Price</th>
                 <th className="px-2 py-2 md:px-4 md:py-4">Address</th>
+                <th className="px-2 py-2 md:px-4 md:py-4">Action</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr
-                  key={item.id}
-                  className="even:bg-default odd:bg-[#E9E9E9] text-center font-inter"
-                >
+              {data.map((order) => (
+                <tr key={order._id} className="even:bg-default odd:bg-[#E9E9E9] text-center font-inter">
                   <td className="px-4 py-2 text-black flex justify-center items-center">
-                    <img
-                      className="h-8 w-16 object-contain"
-                      src={item.productId.image}
-                    />
-                    <td className="px-4 py-2 text-black">
-                      {item.productId.productname}
-                    </td>
+                    <img className="h-8 w-16 object-contain" src={order.productId[0].image} alt={order.productId[0].productname} />
+                    <td className="px-4 py-2 text-black">{order.productId[0].productname}</td>
                   </td>
-                  <td className="px-4 py-2 text-black">
-                    {item.productId.price}
-                  </td>
-                  <td className="px-4 py-2 text-black">
-                    {item.productId.quantity}
-                  </td>
-                  <td>
-                    <Button>Remove</Button>
-                  </td>
+                  <td className="px-4 py-2 text-black">{order.productId[0].quantity}</td>
+                  <td className="px-4 py-2 text-black">{order.productId[0].price}</td>
+                  <td>{order.address}</td>
+                  <td><Button>Remove</Button></td>
                 </tr>
               ))}
             </tbody>
