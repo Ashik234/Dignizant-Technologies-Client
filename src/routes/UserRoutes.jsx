@@ -5,12 +5,17 @@ import Login from "../pages/Login";
 import ProtectRoutes from "./Protected/ProtectedRoutes";
 import PublicRoutes from "./Protected/PublicRoutes";
 import Home from "../pages/Home";
+import Profile from "../pages/Profile";
+import Layout from "../pages/Layout";
 function UserRoutes() {
   return (
     <Routes>
-       <Route exact path="/register" element={<PublicRoutes><Register /></PublicRoutes>} />
+      <Route exact path="/register" element={<PublicRoutes><Register /></PublicRoutes>} />
       <Route exact path="/login" element={<PublicRoutes><Login /></PublicRoutes>} />
-      <Route exact path="/" element={<ProtectRoutes><Home/></ProtectRoutes>}/>
+      <Route path="/" element={<Layout/>}>
+        <Route index element={<ProtectRoutes><Home/></ProtectRoutes>}/>
+        <Route exact path="/profile" element={<ProtectRoutes><Profile/></ProtectRoutes>}/>
+      </Route>
     </Routes>
   );
 }
