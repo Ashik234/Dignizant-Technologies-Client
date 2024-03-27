@@ -5,7 +5,11 @@ import Search from "/search.svg";
 import Cart from "/cart.svg";
 import Profile from "/person_2.svg";
 import Wishlist from "/favorite.svg";
+import Logout from "/logout.svg";
+import { useSelector } from "react-redux";
 function NavBar() {
+  const profiledata = useSelector((state) => state.user);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -20,7 +24,9 @@ function NavBar() {
   return (
     <nav className="flex justify-between items-center py-4 border-2 p-8">
       <div className="flex gap-8">
-        <div className="text-xl font-bold">Dignizant Store</div>
+        <Link to="/">
+          <div className="text-xl font-bold">Dignizant Store</div>
+        </Link>
         <div className="flex gap-2">
           <input
             type="text"
@@ -33,14 +39,14 @@ function NavBar() {
       <div className="flex gap-3">
         <div>
           <div className="flex gap-2">
-          <h1>Ashik</h1>
-          <img
-            src={Profile}
-            className="cursor-pointer"
-            alt=""
-            onClick={toggleDropdown}
+            <h1>{profiledata.username}</h1>
+            <img
+              src={Profile}
+              className="cursor-pointer"
+              alt=""
+              onClick={toggleDropdown}
             />
-            </div>
+          </div>
           {dropdownOpen && (
             <div className="absolute bg-white border border-gray-300 rounded-md p-2 top-16 right-16 z-10">
               <ul>
@@ -52,18 +58,20 @@ function NavBar() {
                     Profile
                   </Link>
                 </li>
-                <li
-                  onClick={handleLogout}
-                  className="cursor-pointer block py-2 px-4 hover:bg-gray-100"
-                >
-                  Logout
-                </li>
+                <div className="flex cursor-pointer py-2 px-2 hover:bg-gray-100">
+                  <img src={Logout} alt="" />
+                  <li onClick={handleLogout}>Logout</li>
+                </div>
               </ul>
             </div>
           )}
         </div>
+        <Link to="/cart">
           <img src={Cart} className="cursor-pointer" alt="" />
-        <img src={Wishlist} className="cursor-pointer" alt="" />
+        </Link>
+        <Link to="/wishlist">
+          <img src={Wishlist} className="cursor-pointer" alt="" />
+        </Link>
       </div>
     </nav>
   );

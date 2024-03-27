@@ -1,84 +1,52 @@
 import React from 'react';
-import { Table, Tag, Space } from 'antd';
 
 function Orders() {
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
-  ];
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
 
   return (
     <div className='mx-8'>
         <h1 className='text-2xl font-semibold text-center mb-4 mt-4'>Order History</h1>
-    <Table columns={columns} dataSource={data} />
+        <div className="overflow-x-auto min-w-full">
+        <div className="overflow-y-auto">
+          <table className="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400 z-0 border-collapse">
+            <thead className="sticky top-0 text-xs text-white font-inter bg-black text-center z-10">
+              <tr>
+                <th className="px-2 py-2 md:px-4 md:py-4">Product</th>
+                <th className="px-2 py-2 md:px-4 md:py-4">Quantity</th>
+                <th className="px-2 py-2 md:px-4 md:py-4">Price</th>
+                <th className="px-2 py-2 md:px-4 md:py-4">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item) => (
+                <tr
+                  key={item.id}
+                  className="even:bg-default odd:bg-[#E9E9E9] text-center font-inter"
+                >
+                  <td className="px-4 py-2 text-black flex justify-center items-center">
+                    <img
+                      className="h-8 w-16 object-contain"
+                      src={item.productId.image}
+                    />
+                    <td className="px-4 py-2 text-black">
+                      {item.productId.productname}
+                    </td>
+                  </td>
+                  <td className="px-4 py-2 text-black">
+                    {item.productId.price}
+                  </td>
+                  <td className="px-4 py-2 text-black">
+                    {item.productId.quantity}
+                  </td>
+                  <td>
+                    <Button>Remove</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          </div>
     </div>
   );
 }
