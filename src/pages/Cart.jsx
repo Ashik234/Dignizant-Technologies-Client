@@ -68,7 +68,9 @@ function Cart() {
                     {item.productId.quantity}
                   </td>
                   <td>
-                    <Button>Remove</Button>
+                    <Button 
+                  onClick={() => handleremoveToCart(item.productId._id)} 
+                    >Remove</Button>
                   </td>
                 </tr>
               ))}
